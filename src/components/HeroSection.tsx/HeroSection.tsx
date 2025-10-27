@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import {
   MagnifyingGlassIcon,
@@ -6,11 +7,12 @@ import {
   CurrencyRupeeIcon,
   UserCircleIcon,
   MapPinIcon,
-} from "@heroicons/react/24/solid";
+} from "@heroicons/react/24/solid"; 
 
 
-export default function HeroSection() {
-  return (
+
+export default function HeroSection({propertyData}: {propertyData: any}) {
+  return ( 
     <div className=" relative h-[40vh] w-full">
       <Image
         src="/heroImg.png"
@@ -26,19 +28,19 @@ export default function HeroSection() {
       </p>
       <div className="absolute left-1/2 -translate-x-1/2 w-[90%] bottom-[-170px] sm:[bottom:-70px] md:[bottom:-90px]sm:w-[80%] md:w-[70%] lg:w-[65%] max-w-[1000px] bg-white shadow-lg p-5 rounded-lg">
         <div className="flex flex-wrap gap-2 sm-gap-3 justify-center text-sm font-bold text-gray-500">
-          <span>Buy</span>
+          <span className="">Buy</span>
           <span>Rent</span>
           <span>New Projects</span>
           <span>PG</span>
           <span>Plot</span>
           <span>Commercial</span>
         </div>
-        <div className="flex gap-2 sm:gap-4 mt-4 flex-col sm:flex-row flex-wrap">
+        <div className="flex gap-2 sm:gap-4 mt-4 flex-col sm:flex-row flex-wrap lg:flex-nowrap justify-center">
           <div className="flex gap-2 items-center px-3 py-1  w-full sm:w-[60%]">
             <MapPinIcon className="h-6 w-6 text-red-500 " />
-            <input
+            <input suppressHydrationWarning
               type="text"
-              placeholder="Search by BHK '2bhk in Mumbai'"
+              placeholder="Search by BHK '2 bhk Mumbai'" 
               className="w-full focus:outline-none p-2 placeholder:text-sm  md:placeholder:text-base"
             />
           </div>
