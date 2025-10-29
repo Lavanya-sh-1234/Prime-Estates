@@ -28,7 +28,7 @@ export default function PropertyCards({
   propertyData: Property[];
   filters: Filters;
 }){
- 
+  const [filteredData, setFilteredData] = useState<Property[]>(propertyData);
 
   useEffect(() => {
     let filtered = propertyData;
