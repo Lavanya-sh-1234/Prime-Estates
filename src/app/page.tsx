@@ -1,11 +1,13 @@
+"use client";
 import BlogSection from "@/components/BlogSection/BlogSection";
-
 import HeroSection from "@/components/HeroSection.tsx/HeroSection";
 import Navbar from "@/components/Navbar.tsx/Navbar";
 import PropertyCards from "@/components/PropertiesCard/PropertyCards";
+import { useState } from "react";
+import { Filters } from "@/components/types/filters";
 
 export default function Homepage() {
- const propList =[
+  const propList = [
     {
       id: 1,
       title: "2 BHK Flat for Sale in Malad, Mumbai",
@@ -112,13 +114,19 @@ export default function Homepage() {
       imgSrc: "/property10.jpg",
       photosCount: 11,
     },
-  ]
-  
+  ];
+
+  const [filters, setFilters] = useState<Filters>({
+    search: "",
+    propertyType: "",
+    budget: "",
+  });
+
   return (
     <>
       <Navbar />
-      <HeroSection  propertyData={propList}/>
-      <PropertyCards propertyData={propList}/>
+      <HeroSection onSearch={setFilters} />
+      <PropertyCards propertyData={propList} filters={filters} />
       <BlogSection />
     </>
   );

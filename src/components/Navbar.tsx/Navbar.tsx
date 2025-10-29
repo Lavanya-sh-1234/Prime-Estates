@@ -8,7 +8,7 @@ import {
 
 export default function Navbar() {
   return (
-    <nav className="flex flex-wrap justify-between items-center px-3 py-3 sm:px-8 md:px-12">
+    <nav className="flex flex-wrap justify-between  items-center px-3 py-3 sm:px-8 md:px-12">
       <div className="flex gap-2 sm:gap-4 items-center flex-wrap">
         <Image alt="logo" src="/logo.jpg" height={60} width={50} className="h-10 w-auto sm:h-16" />
         <p className="text-lg sm:text-2xl font-semibold whitespace-nowrap">
