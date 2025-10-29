@@ -44,18 +44,21 @@ export default function HeroSection({
           in Mumbai
         </span>
       </p>
-      <div className="absolute left-1/2 -translate-x-1/2 w-[90%] bottom-[-170px] sm:[bottom:-70px] md:[bottom:-90px] sm:w-[80%] md:w-[70%] lg:w-[65%] max-w-[1000px] bg-white shadow-lg p-5 rounded-lg">
+      <div className="absolute left-1/2 -translate-x-1/2 w-[90%] bottom-[-190px] sm:[bottom:-125px] md:[bottom:-110px] sm:w-[80%]  lg:w-[65%] max-w-[1000px] bg-white shadow-lg p-5 rounded-lg">
         <div className="flex flex-wrap gap-2 sm-gap-3 justify-center text-sm font-bold text-gray-500">
-          <span>Buy</span>
+          <span className="text-red-600">Buy</span>
           <span>Rent</span>
           <span>New Projects</span>
           <span>PG</span>
           <span>Plot</span>
           <span>Commercial</span>
         </div>
-        <div className="flex gap-2 sm:gap-4 mt-4 flex-col sm:flex-row flex-wrap lg:flex-nowrap justify-center">
+        <div className="flex gap-2 sm:gap-4 mt-4 flex-col sm:flex-row flex-wrap justify-center">
           <div className="flex gap-2 items-center px-3 py-1  w-full sm:w-[60%]">
-            <MapPinIcon className="h-6 w-6 text-red-500 " />
+            <MapPinIcon
+              suppressHydrationWarning
+              className="h-6 w-6 text-red-500 "
+            />
             <input
               type="text"
               placeholder="Search by BHK '2 bhk Mumbai'"
@@ -110,12 +113,14 @@ export default function HeroSection({
             </select>
           </div>
 
-          <div
-            className="flex gap-2 items-center bg-red-600 text-white px-4 py-2 rounded flex-shrink-0 cursor-pointer"
-            onClick={handleSearch}
-          >
-            <MagnifyingGlassIcon className="h-5 w-5 text-gray-100" />
-            <button>Search</button>
+          <div className="flex flex-col items-center">
+            <div
+              className="flex gap-2 items-center bg-red-600 text-white px-4 py-2 rounded cursor-pointer active:scale-95 transition-transform"
+              onClick={handleSearch}
+            >
+              <MagnifyingGlassIcon className="h-5 w-5 text-gray-100" />
+              <button>Search</button>
+            </div>
           </div>
         </div>
       </div>
