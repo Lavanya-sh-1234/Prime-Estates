@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
 import Image from "next/image";
 import {
   MapPinIcon,
@@ -28,35 +28,40 @@ export default function PropertyCards({
   propertyData: Property[];
   filters: Filters;
 }) {
-  const [filteredData, setFilteredData] = useState<Property[]>(propertyData);
+ 
+  // New filtering logic
+  //  Pros: Shorter logic using filter directly in render
+  //        logic that checks for all words in search input regardless of order 
+  //        
+  //  Limitation : all words must be present in title to match
 
-  useEffect(() => {
-    let filtered = propertyData;
+  const filteredData = propertyData.filter((p) => {
+    const title = p.title.toLowerCase();
+    const type = p.status.toLowerCase();
+    const words = filters.search
+      .toLowerCase()
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
+    const maxBudget = Number(filters.budget) || 0;
 
-    if (filters.search.trim()) {
-      const query = filters.search.toLowerCase();
-      filtered = filtered.filter((p) => p.title.toLowerCase().includes(query));
-    }
+    return (
+      (!filters.search || words.every((word) => title.includes(word))) &&
+      (!filters.propertyType ||
+        type.includes(filters.propertyType.toLowerCase())) &&
+      (!filters.budget ||
+        (() => {
+          const raw = p.price.toLowerCase();
+          const num = parseFloat(raw.replace(/[^0-9.]/g, "")) || 0;
+          const isCr = raw.includes("cr");
+          const priceInLakh = isCr ? num * 100 : num;
 
-    if (filters.propertyType) {
-      filtered = filtered.filter((p) =>
-        p.status.toLowerCase().includes(filters.propertyType.toLowerCase())
-      );
-    }
+          if (isCr && maxBudget < 100) return false;
 
-    if (filters.budget) {
-      const maxBudget = Number(filters.budget);
-      filtered = filtered.filter((p) => {
-        const price = parseInt(p.price.replace(/[^0-9]/g, ""));
-        if (p.price.includes("Cr")) {
-          return maxBudget >= 100;
-        }
-        return price <= maxBudget;
-      });
-    }
-
-    setFilteredData(filtered);
-  }, [filters, propertyData]);
+          return priceInLakh <= maxBudget;
+        })())
+    );
+  });
 
   return (
     <section className="w-full mt-55 sm:mt-35 px-4 sm:px-10 max-w-7xl mx-auto">
@@ -64,7 +69,7 @@ export default function PropertyCards({
         Hot Selling Properties in Mumbai
       </h2>
 
-      <div className="flex overflow-x-auto gap-5 scrollbar-hide pb-4 justify-center">
+      <div className="flex overflow-x-auto gap-5 scrollbar-hide pb-4 pl-4">
         {filteredData.length === 0 ? (
           <p className="text-center text-gray-500 text-sm sm:text-base py-10 ">
             No properties found matching your filters.
@@ -120,3 +125,35 @@ export default function PropertyCards({
     </section>
   );
 }
+
+// Old filtering logic using useState and useEffect : limitation was that search filter only render it matched words were in exact order
+
+//  const [filteredData, setFilteredData] = useState<Property[]>(propertyData);
+
+//   useEffect(() => {
+//     let filtered = propertyData;
+
+//     if (filters.search.trim()) {
+//       const query = filters.search.toLowerCase();
+//       filtered = filtered.filter((p) => p.title.toLowerCase().includes(query));
+//     }
+
+//     if (filters.propertyType) {
+//       filtered = filtered.filter((p) =>
+//         p.status.toLowerCase().includes(filters.propertyType.toLowerCase())
+//       );
+//     }
+
+//     if (filters.budget) {
+//       const maxBudget = Number(filters.budget);
+//       filtered = filtered.filter((p) => {
+//         const price = parseInt(p.price.replace(/[^0-9]/g, ""));
+//         if (p.price.includes("Cr")) {
+//           return maxBudget >= 100;
+//         }
+//         return price <= maxBudget;
+//       });
+//     }
+
+//     setFilteredData(filtered);
+//   }, [filters, propertyData]);
