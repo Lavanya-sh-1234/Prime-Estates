@@ -120,11 +120,12 @@ export default function Homepage() {
     search: "",
     propertyType: "",
     budget: "",
-  });
+  }); 
+
 
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <HeroSection onSearch={setFilters} />
       <PropertyCards propertyData={propList} filters={filters} />
       <BlogSection />
