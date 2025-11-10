@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { Filters } from "@/components/types/filters";
 
-interface Property {
+export interface Property {
   id: number;
   title: string;
   location: string;

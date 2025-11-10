@@ -15,12 +15,10 @@ export default function LoginPage() {
   const handleLogin = async (): Promise<void> => {
     setError("");
     const token = await loginUser(email, password);
-   
-
+  
     if (token) {
       //localStorage.setItem("authToken", token);
-      
-     saveToken(token);
+      saveToken(token);
       router.push("/profile");
     } else {
       setError("Invalid email or password");

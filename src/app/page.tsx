@@ -2,11 +2,11 @@ import Home from "@/components/Home";
 import { cookies } from "next/headers";
 
 
-  async function getData() {
-    const cookieStore = await cookies();
-    const authToken = cookieStore.get("authToken") || "";
-    return authToken;
-  }
+async function getData() {
+  const cookieStore = await cookies();
+  const authToken = cookieStore.get("authToken") || "";
+  return authToken;
+}
 
 export default async function Homepage() {
 

@@ -8,22 +8,27 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
+import { removeToken } from "@/utils/loginHandler";
 
-export default function Navbar({authToken}: any) {
+type NavbarProps = { authToken?: string | null };
+
+export default function Navbar({ authToken }: NavbarProps) {
   const router = useRouter();
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  
+  // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   // useEffect(() => {
   //   //const token = localStorage.getItem("authToken");
-    
+  //   const token = getCookie("authToken");
+
   //   setIsLoggedIn(Boolean(token));
   // }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    setIsLoggedIn(false);
+    //localStorage.removeItem("authToken");
+    removeToken();
+    // setIsLoggedIn(false);
     router.push("/login");
   };
   return (
@@ -57,7 +62,7 @@ export default function Navbar({authToken}: any) {
         <span className="whitespace-nowrap">Post your Property</span>
 
         <div className="bg-red-600 text-white font-light text-xs sm:text-sm rounded h-6 sm:h-7 w-12 sm:w-14 flex justify-center items-center">
-          {authToken?.value ? (
+          {authToken ? (
             <button onClick={handleLogout}>Logout</button>
           ) : (
             <button
