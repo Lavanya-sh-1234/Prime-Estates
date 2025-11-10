@@ -1,12 +1,17 @@
-"use client";
-import BlogSection from "@/components/BlogSection/BlogSection";
-import HeroSection from "@/components/HeroSection.tsx/HeroSection";
-import Navbar from "@/components/Navbar.tsx/Navbar";
-import PropertyCards from "@/components/PropertiesCard/PropertyCards";
-import { useState } from "react";
-import { Filters } from "@/components/types/filters";
+import Home from "@/components/Home";
+import { cookies } from "next/headers";
 
-export default function Homepage() {
+
+  async function getData() {
+    const cookieStore = await cookies();
+    const authToken = cookieStore.get("authToken") || "";
+    return authToken;
+  }
+
+export default async function Homepage() {
+
+  const authToken = await getData();
+
   const propList = [
     {
       id: 1,
@@ -116,19 +121,7 @@ export default function Homepage() {
     },
   ];
 
-  const [filters, setFilters] = useState<Filters>({
-    search: "",
-    propertyType: "",
-    budget: "",
-  }); 
 
 
-  return (
-    <>
-      <Navbar/>
-      <HeroSection onSearch={setFilters} />
-      <PropertyCards propertyData={propList} filters={filters} />
-      <BlogSection />
-    </>
-  );
+  return <Home propList={propList} authToken={authToken}/>;
 }

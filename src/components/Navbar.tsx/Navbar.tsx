@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
-export default function Navbar() {
+export default function Navbar({authToken}: any) {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
@@ -57,7 +57,7 @@ export default function Navbar() {
         <span className="whitespace-nowrap">Post your Property</span>
 
         <div className="bg-red-600 text-white font-light text-xs sm:text-sm rounded h-6 sm:h-7 w-12 sm:w-14 flex justify-center items-center">
-          {isLoggedIn ? (
+          {authToken?.value ? (
             <button onClick={handleLogout}>Logout</button>
           ) : (
             <button
