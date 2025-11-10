@@ -10,14 +10,16 @@ import {
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+
 export default function Navbar() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    setIsLoggedIn(Boolean(token));
-  }, []);
+  // useEffect(() => {
+  //   //const token = localStorage.getItem("authToken");
+    
+  //   setIsLoggedIn(Boolean(token));
+  // }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { loginUser } from "../../utils/auth";
+import { saveToken } from "@/utils/loginHandler";
+
 
 export default function LoginPage() {
   const router = useRouter();
@@ -13,10 +15,13 @@ export default function LoginPage() {
   const handleLogin = async (): Promise<void> => {
     setError("");
     const token = await loginUser(email, password);
+   
 
     if (token) {
-      localStorage.setItem("authToken", token);
-      router.push("/");
+      //localStorage.setItem("authToken", token);
+      
+     saveToken(token);
+      router.push("/profile");
     } else {
       setError("Invalid email or password");
     }
