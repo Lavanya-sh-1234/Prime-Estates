@@ -8,10 +8,22 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    setIsLoggedIn(Boolean(token));
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setIsLoggedIn(false);
+    router.push("/login");
+  };
   return (
     <nav className="flex flex-wrap justify-between  items-center px-3 py-3 sm:px-8 md:px-12">
       <div className="flex gap-2 sm:gap-4 items-center flex-wrap">
@@ -43,12 +55,16 @@ export default function Navbar() {
         <span className="whitespace-nowrap">Post your Property</span>
 
         <div className="bg-red-600 text-white font-light text-xs sm:text-sm rounded h-6 sm:h-7 w-12 sm:w-14 flex justify-center items-center">
-          <button
-            suppressHydrationWarning
-            onClick={() => router.push("/login")}
-          >
-            Login
-          </button>
+          {isLoggedIn ? (
+            <button onClick={handleLogout}>Logout</button>
+          ) : (
+            <button
+              suppressHydrationWarning
+              onClick={() => router.push("/login")}
+            >
+              Login
+            </button>
+          )}
         </div>
 
         <span>

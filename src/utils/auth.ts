@@ -10,10 +10,13 @@ export const loginUser = async (email: string, password: string) => {
 
     if (!res.ok) throw new Error("login failed");
 
-    const data: { token: string; } = await res.json();
+    const data: { token: string } = await res.json();
     return data.token;
   } catch (error) {
     console.error(error);
     return null;
   }
 };
+
+//Mail Id to test the api
+//Email : jaskirat@brandmonkey.in  Password : jaskirat@BM001

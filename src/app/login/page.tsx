@@ -15,6 +15,7 @@ export default function LoginPage() {
     const token = await loginUser(email, password);
 
     if (token) {
+      localStorage.setItem("authToken", token);
       router.push("/");
     } else {
       setError("Invalid email or password");
