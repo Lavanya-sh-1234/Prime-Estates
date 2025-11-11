@@ -6,16 +6,18 @@ import {
   HeartIcon,
   DevicePhoneMobileIcon,
   Bars3Icon,
+  UserIcon,
 } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
 
 import { removeToken } from "@/utils/loginHandler";
+import Link from "next/link";
 
 type NavbarProps = { authToken?: string | null };
 
 export default function Navbar({ authToken }: NavbarProps) {
   const router = useRouter();
-  
+
   // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   // useEffect(() => {
@@ -58,6 +60,15 @@ export default function Navbar({ authToken }: NavbarProps) {
         <span className="flex items-center gap-1">
           Download App
           <DevicePhoneMobileIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+        </span>
+        <span className="flex items-center gap-1">
+          <Link
+            href="/profile"
+            className="flex items-center gap-1 hover:text-red-600"
+          >
+            Profile
+            <UserIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+          </Link>
         </span>
         <span className="whitespace-nowrap">Post your Property</span>
 
