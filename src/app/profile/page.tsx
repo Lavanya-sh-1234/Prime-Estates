@@ -5,9 +5,12 @@ import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 
 const ProfileSchema = Yup.object({
-  fullName: Yup.string().required("Full name is required"),
+  fullName: Yup.string()
+    .trim()
+    .matches(/^(?!\s*$).+$/, "Full name cannot be empty or just spaces")
+    .required("Full name is required"),
   phone: Yup.string()
-    .matches(/^[0-9]{10}$/, "Enter a valid 10-digit number")
+    .matches(/^[0-9]{10}$/, "Enter a valid 10-digit number (digits only)")
     .required("Phone number is required"),
   address: Yup.string().required("Address is required"),
   locality: Yup.string().required("Preferred locality is required"),

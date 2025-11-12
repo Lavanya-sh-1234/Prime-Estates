@@ -11,11 +11,13 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "cookies-next": "^6.1.1",
+    "formik": "^2.4.9",
     "mongoose": "^8.19.2",
     "next": "15.5.6",
     "postcss": "^8.5.6",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
